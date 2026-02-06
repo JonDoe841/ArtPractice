@@ -1,6 +1,6 @@
 from django.urls import path, include
 from tutorials import views
-app_name = 'tutorial'
+app_name = 'tutorials'
 urlpatterns = [
     path('', views.tutorial_list, name= 'tutorial_list'),
     path('add/', views.tutorial_add, name= 'add'),
