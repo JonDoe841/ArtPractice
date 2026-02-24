@@ -143,20 +143,45 @@ http://127.0.0.1:8000
 
 ```
 ArtPractice/
-│
 ├── manage.py
 ├── README.md
 ├── ArtPractice/
 │   ├── settings.py
 │   ├── urls.py
 │   └── wsgi.py
-│
 ├── categories/
-├── tutorials/
+│   ├── models.py
+│   ├── views.py
+│   ├── forms.py
+│   └── urls.py
 ├── core/
-│
-├── templates/
-└── static/
+│   ├── views.py
+│   ├── context_processors.py
+│   └── urls.py
+├── tutorials/
+│   ├── models.py
+│   ├── views.py
+│   ├── forms.py
+│   ├── urls.py
+│   └── templatetags/
+│       └── custom_filters.py
+└── templates/
+    ├── base.html
+    ├── 404.html
+    ├── core/
+    │   └── home_page.html
+    ├── categories/
+    │   ├── add_category.html
+    │   ├── category_list.html
+    │   ├── category_detail.html
+    │   ├── edit_category.html
+    │   └── delete_category.html
+    └── tutorials/
+        ├── tutorial_list.html
+        ├── tutorial_details.html
+        ├── tutorial_create.html
+        ├── tutorial_edit.html
+        └── tutorial_delete.html
 ```
 
 ---
