@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to ArtPractice</h1>
+
+<p>Your place for learning and sharing art tutorials.</p>
+
+<div>
+    <h2>Quick Links</h2>
+    <ul>
+        <li><a href="{% url 'tutorials:tutorial_list' %}">Browse All Tutorials</a></li>
+        <li><a href="{% url 'categories:category_list' %}">View Categories</a></li>
+        <li><a href="{% url 'tutorials:create_tutorial' %}">Create New Tutorial</a></li>
+    </ul>
+</div>
+
+<div>
+    <h2>Latest Tutorials</h2>
+    {% with latest_tutorials=tutorials|slice:":3" %}
+        {% for tutorial in latest_tutorials %}
+            <div>
+                <h3><a href="{% url 'tutorials:details' tutorial.pk %}">{{ tutorial.title }}</a></h3>
+                <p>{{ tutorial.summary|truncatewords:20 }}</p>
+                <p>Category: {{ tutorial.category.name }}</p>
+            </div>
+        {% empty %}
+            <p>No tutorials yet.</p>
+        {% endfor %}
+    {% endwith %}
+</div>
+{% endblock %}

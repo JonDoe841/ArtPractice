@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1> Category detail page </h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ category.name }}</h1>
+<p>{{ category.description }}</p>
+<p>Order: {{ category.order }}</p>
+<p>Created: {{ category.created }}</p>
+
+
+<a href="{% url 'categories:edit' category.pk %}">Edit</a>
+<a href="{% url 'categories:delete' category.pk %}">Delete</a>
+
+
+<h2>Tutorials in this Category</h2>
+{% for tutorial in tutorials %}
+    <div>
+        <a href="{% url 'tutorials:details' tutorial.pk %}">
+            {{ tutorial.title }}
+        </a>
+    </div>
+{% empty %}
+    <p>No tutorials in this category yet.</p>
+{% endfor %}
+
+<a href="{% url 'categories:category_list' %}">Back to Categories</a>
+{% endblock %}

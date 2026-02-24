@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Tutorial details page </h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% load custom_filters %}
+
+{% block content %}
+<h1>{{ tutorial.title }}</h1>
+
+<div class="action-links">
+    <a href="{% url 'tutorials:tutorial_list' %}">← Back to Tutorials</a>
+    |
+    <a href="{% url 'tutorials:edit' tutorial.pk %}">Edit</a>
+    |
+    <a href="{% url 'tutorials:delete' tutorial.pk %}">Delete</a>
+    |
+    <a href="{% url 'categories:detail' tutorial.category.pk %}">View Category: {{ tutorial.category.name }}</a>
+</div>
+
+<hr>
+
+<p><strong>Difficulty:</strong> {{ tutorial.get_difficulty_display }}</p>
+<p><strong>Estimated time:</strong> {{ tutorial.estimated_time|minutes_to_hours }}</p>
+<p><strong>Category:</strong> {{ tutorial.category }}</p>
+
+<hr>
+
+<p>{{ tutorial.content|linebreaks }}</p>
+
+<hr>
+
+<div class="nav-links">
+    <a href="{% url 'core:home' %}">Home</a> |
+    <a href="{% url 'tutorials:tutorial_list' %}">All Tutorials</a> |
+    <a href="{% url 'categories:category_list' %}">Categories</a> |
+    <a href="{% url 'tutorials:create_tutorial' %}">New Tutorial</a>
+</div>
+
+{% endblock %}

@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1> Category add page </h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Add New Category</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><small>Order determines display sequence (lower numbers appear first)</small></p>
+    <button type="submit">Add Category</button>
+</form>
+
+<a href="{% url 'categories:category_list' %}">Back to Categories</a>
+{% endblock %}

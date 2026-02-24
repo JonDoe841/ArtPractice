@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Tutorial list page </h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% load custom_filters %}
+
+{% block content %}
+<h1>All Tutorials</h1>
+
+<form method="get">
+    <input type="text" name="q" placeholder="Search tutorials..." value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+
+{% for tutorial in page_obj %}
+    <div>
+        <h3>
+            <a href="{% url 'tutorials:details' tutorial.pk %}">
+                {{ tutorial.title }}
+            </a>
+        </h3>
+        <p>Difficulty: {{ tutorial.get_difficulty_display }}</p>
+        <p>Estimated: {{ tutorial.estimated_time|minutes_to_hours }}</p>
+        <p>Created: {{ tutorial.created_at|date:"F j, Y" }}</p>
+        <p>Summary: {{ tutorial.summary|truncatewords:20 }}</p>
+    </div>
+{% empty %}
+    <p>No tutorials yet.</p>
+{% endfor %}
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Previous</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Next</a>
+    {% endif %}
+</div>
+
+<a href="{% url 'tutorials:create_tutorial' %}">Create New Tutorial</a>
+{% endblock %}

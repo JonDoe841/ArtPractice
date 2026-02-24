@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ArtPractice{% endblock %}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+        }
+
+        header {
+            background-color: #2c3e50;
+            padding: 15px 30px;
+        }
+
+        header nav a {
+            color: #ffffff;
+            margin-right: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 85%;
+            margin: 30px auto;
+        }
+
+        .messages {
+            padding: 10px;
+            background-color: #eaf7ea;
+            border: 1px solid #b6e0b6;
+            margin-bottom: 20px;
+        }
+
+        .errorlist {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+        }
+
+        .category-links a {
+            display: inline-block;
+            margin-right: 10px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .category-links a:hover {
+            text-decoration: underline;
+        }
+
+        hr {
+            margin: 40px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <a href="{% url 'core:home' %}">Home</a>
+        <a href="{% url 'tutorials:tutorial_list' %}">Tutorials</a>
+        <a href="{% url 'categories:category_list' %}">Categories</a>
+        <a href="{% url 'tutorials:create_tutorial' %}">Create Tutorial</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div>{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+    <hr>
+
+    <section>
+        <h3>Browse by Category</h3>
+
+        {% if categories %}
+            <div class="category-links">
+                {% for category in categories %}
+                    <a href="{% url 'tutorials:by_category' category.pk %}">
+                        {{ category.name }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No categories available.</p>
+        {% endif %}
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; {% now "Y" %} ArtPractice. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

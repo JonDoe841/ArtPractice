@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Tutorial delete page </h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Delete Tutorial</h1>
+
+<p>Are you sure you want to delete "{{ tutorial.title }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+</form>
+
+<a href="{% url 'tutorials:details' tutorial.pk %}">Cancel</a>
+{% endblock %}
